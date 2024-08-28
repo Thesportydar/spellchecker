@@ -4,6 +4,7 @@ import org.junit.*;
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.corrector.Dictionary;
 import edu.isistan.spellchecker.corrector.impl.FileCorrector;
+import edu.isistan.spellchecker.corrector.impl.SwapCorrector;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 import static org.junit.Assert.*;
@@ -72,5 +73,39 @@ public class MyTests {
 	    assertEquals("lyon -> {}", makeSet(new String[] {"lion"}), c.getCorrections("lyon"));
 	    assertEquals("Lyon -> {}", makeSet(new String[] {"Lion"}), c.getCorrections("Lyon"));
 	    assertEquals("LyON -> {}", makeSet(new String[] {"Lion"}), c.getCorrections("LyON"));
+	}
+	
+	//TEST SWAP CORRECTOR
+	@Test public void testDictionaryNull() throws IOException {
+		try {
+			new SwapCorrector(null);
+		    fail("Expected an IllegalArgumentException - cannot create FileCorrector with null.");
+		} catch (IllegalArgumentException f) {    
+		      //Do nothing. It's supposed to throw an exception
+		}
+	}
+	
+	@Test public void testSwapExistingWord() throws IOException {
+		Reader reader = new FileReader("smallDictionary.txt");
+		try {
+			Dictionary d = new Dictionary(new TokenScanner(reader));
+			SwapCorrector swap = new SwapCorrector(d);
+			assertEquals("carrot -> {}", makeSet(new String[]{}), swap.getCorrections("carrot"));
+		} finally {
+			reader.close();
+		}
+	}
+	
+	@Test public void testSwapCapitalization() throws IOException {
+		Reader reader = new FileReader("smallDictionary.txt");
+		try {
+			Dictionary d = new Dictionary(new TokenScanner(reader));
+			SwapCorrector swap = new SwapCorrector(d);
+			assertEquals("carrTO -> {carrot}", makeSet(new String[]{"carrot"}), swap.getCorrections("carrTO"));
+			assertEquals("CARrto -> {Carrot}", makeSet(new String[]{"Carrot"}), swap.getCorrections("CARrto"));
+			assertEquals("caRRto -> {carrot}", makeSet(new String[]{"carrot"}), swap.getCorrections("caRRto"));
+		} finally {
+			reader.close();
+		}
 	}
 }
