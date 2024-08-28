@@ -1,0 +1,4 @@
+   lyon,lion   
+ chimpanze  ,     chimpanzee
+ Tigger  ,     tiger
+tigger    ,TRIGGER    

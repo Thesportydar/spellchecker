@@ -1,8 +1,13 @@
 package edu.isistan.spellchecker.corrector.impl;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.security.auth.kerberos.KerberosCredMessage;
+
 import edu.isistan.spellchecker.corrector.Corrector;
+import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 import java.io.*;
 
@@ -13,7 +18,7 @@ import java.io.*;
 public class FileCorrector extends Corrector {
 
 	/** Clase especial que se utiliza al tener 
-	 * algún error de formato en el archivo de entrada.
+	 * algï¿½n error de formato en el archivo de entrada.
 	 */
 	public static class FormatException extends Exception {
 		public FormatException(String msg) {
@@ -21,14 +26,15 @@ public class FileCorrector extends Corrector {
 		}
 	}
 
+	public HashMap<String, Set<String>> corrections;
 
 	/**
 	 * Constructor del FileReader
 	 *
-	 * Utilice un BufferedReader para leer el archivo de definición
+	 * Utilice un BufferedReader para leer el archivo de definiciï¿½n
 	 *
 	 * <p> 
-	 * Cada línea del archivo del diccionario tiene el siguiente formato: 
+	 * Cada lï¿½nea del archivo del diccionario tiene el siguiente formato: 
 	 * misspelled_word,corrected_version
 	 *
 	 * <p>
@@ -42,7 +48,7 @@ public class FileCorrector extends Corrector {
 	 * ther,there<br>
 	 * </pre>
 	 * <p>
-	 * Estas líneas no son case-insensitive, por lo que todas deberían generar el mismo efecto:<br>
+	 * Estas lï¿½neas no son case-insensitive, por lo que todas deberï¿½an generar el mismo efecto:<br>
 	 * <pre>
 	 * baloon,balloon<br>
 	 * Baloon,balloon<br>
@@ -62,7 +68,7 @@ public class FileCorrector extends Corrector {
 	 * Los espacios son permitidos dentro de las sugerencias. 
 	 *
 	 * <p>
-	 * Debería arrojar <code>FileCorrector.FormatException</code> si se encuentra algún
+	 * Deberï¿½a arrojar <code>FileCorrector.FormatException</code> si se encuentra algï¿½n
 	 * error de formato:<br>
 	 * <pre>
 	 * ,correct<br>
@@ -78,7 +84,28 @@ public class FileCorrector extends Corrector {
 	 * @throws IllegalArgumentException reader es null
 	 */
 	public FileCorrector(Reader r) throws IOException, FormatException {
-
+		if (r == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		corrections = new HashMap<String, Set<String>>();
+		BufferedReader br = new BufferedReader(r);
+		String line;
+		int numLine = 1;
+		
+		while ((line = br.readLine()) != null) {
+			String[] parts = line.split(",");
+			
+			if (parts.length < 2 || parts[0] == null)
+				throw new FormatException("Formato invalido en la linea " + numLine + ":\"" + line + "\".\nSe esperaba: <wrong>,<correct>");
+			
+			parts[0] = parts[0].trim().toLowerCase();
+			parts[1] = parts[1].trim().toLowerCase();
+			
+			Set<String> aux = corrections.computeIfAbsent(parts[0], k -> new HashSet<String>());
+			aux.add(parts[1]);
+			numLine++;
+		}
 	}
 
 	/** Construye el Filereader.
@@ -101,15 +128,18 @@ public class FileCorrector extends Corrector {
 
 	/**
 	 * Retorna una lista de correcciones para una palabra dada.
-	 * Si la palabra mal escrita no está en el diccionario el set es vacio.
+	 * Si la palabra mal escrita no estï¿½ en el diccionario el set es vacio.
 	 * <p>
 	 * Ver superclase.
 	 *
 	 * @param wrong 
-	 * @return retorna un conjunto (potencialmente vacío) de sugerencias.
-	 * @throws IllegalArgumentException si la entrada no es una palabra válida 
+	 * @return retorna un conjunto (potencialmente vacï¿½o) de sugerencias.
+	 * @throws IllegalArgumentException si la entrada no es una palabra vï¿½lida 
 	 */
 	public Set<String> getCorrections(String wrong) {
-		return null;
+		if (!TokenScanner.isWord(wrong))
+			throw new IllegalArgumentException();
+		
+		return matchCase(wrong, corrections.getOrDefault(wrong.trim().toLowerCase(), new HashSet<String>()));
 	}
 }

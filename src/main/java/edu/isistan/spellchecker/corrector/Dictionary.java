@@ -29,7 +29,7 @@ public class Dictionary {
 	 * @throws IllegalArgumentException el TokenScanner es null
 	 */
 	public Dictionary(TokenScanner ts) throws IOException {
-		this(ts, new HashSet<>());
+		this(ts, new HashSet<String>());
 	}
 	
 	public Dictionary(TokenScanner ts, Set<String> words) throws IOException {
