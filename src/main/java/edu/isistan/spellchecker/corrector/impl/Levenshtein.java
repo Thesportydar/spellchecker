@@ -4,13 +4,14 @@ import java.util.Set;
 
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.corrector.Dictionary;
+import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 /**
  *
  * Un corrector inteligente que utiliza "edit distance" para generar correcciones.
  * 
- * La distancia de Levenshtein es el número minimo de ediciones que se deber
- * realizar a un string para igualarlo a otro. Por edición se entiende:
+ * La distancia de Levenshtein es el nï¿½mero minimo de ediciones que se deber
+ * realizar a un string para igualarlo a otro. Por ediciï¿½n se entiende:
  * <ul>
  * <li> insertar una letra
  * <li> borrar una letra
@@ -18,13 +19,13 @@ import edu.isistan.spellchecker.corrector.Dictionary;
  * </ul>
  *
  * Una "letra" es un caracter a-z (no contar los apostrofes).
- * Intercambiar letras (thsi -> this) <it>no</it> cuenta como una edición.
+ * Intercambiar letras (thsi -> this) <it>no</it> cuenta como una ediciï¿½n.
  * <p>
  * Este corrector sugiere palabras que esten a edit distance uno.
  */
 public class Levenshtein extends Corrector {
 
-
+	Dictionary dict;
 	/**
 	 * Construye un Levenshtein Corrector usando un Dictionary.
 	 * Debe arrojar <code>IllegalArgumentException</code> si el diccionario es null.
@@ -32,7 +33,10 @@ public class Levenshtein extends Corrector {
 	 * @param dict
 	 */
 	public Levenshtein(Dictionary dict) {
-		throw new UnsupportedOperationException(); // STUB
+		if (dict == null) {
+			throw new IllegalArgumentException();
+		}
+		this.dict = dict;
 	}
 
 	/**
@@ -40,7 +44,15 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a erase distance uno
 	 */
 	Set<String> getDeletions(String s) {
-		throw new UnsupportedOperationException(); // STUB
+		Set<String> deletions = new HashSet<String>();
+		
+		for (int i = 0; i < s.length(); i++) {
+			String aux = s.substring(0, i) + s.substring(i+1, s.length());
+			if (dict.isWord(aux)) {
+				deletions.add(aux);
+			}
+		}
+		return deletions;
 	}
 
 	/**
@@ -48,7 +60,19 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a substitution distance uno
 	 */
 	public Set<String> getSubstitutions(String s) {
-		throw new UnsupportedOperationException(); // STUB
+		Set<String> substitutions = new HashSet<String>();
+		
+		for (int i = 0; i < s.length(); i++) {
+			for (char c = 'a'; c <= 'z'; c++) {
+				if (c != s.charAt(i)) {
+					String aux = s.substring(0, i) + c + s.substring(i+1);
+					if (dict.isWord(aux)) {
+						substitutions.add(aux);
+					}
+				}
+			}
+		}
+		return substitutions;
 	}
 
 
@@ -57,10 +81,27 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a insert distance uno
 	 */
 	public Set<String> getInsertions(String s) {
-		throw new UnsupportedOperationException(); // STUB
+		Set<String> insertions = new HashSet<String>();
+		
+		for (int i = 0; i <= s.length(); i++) {
+			for (char c = 'a'; c <= 'z'; c++) {
+				String aux = s.substring(0, i) + c + s.substring(i);
+				if (dict.isWord(aux)) {
+					insertions.add(aux);
+				}
+			}
+		}
+		return insertions;
 	}
 
 	public Set<String> getCorrections(String wrong) {
-		throw new UnsupportedOperationException(); // STUB
+		if (!TokenScanner.isWord(wrong))
+			throw new IllegalArgumentException();
+		
+		Set<String> result = getDeletions(wrong);
+		result.addAll(getSubstitutions(wrong));
+		result.addAll(getInsertions(wrong));
+		
+		return matchCase(wrong, result);
 	}
 }

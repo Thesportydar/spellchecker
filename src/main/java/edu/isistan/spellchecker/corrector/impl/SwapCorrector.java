@@ -5,6 +5,7 @@ import java.util.Set;
 
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.corrector.Dictionary;
+import edu.isistan.spellchecker.tokenizer.TokenScanner;
 /**
  * Este corrector sugiere correciones cuando dos letras adyacentes han sido cambiadas.
  * <p>
@@ -51,6 +52,9 @@ public class SwapCorrector extends Corrector {
 	 * @throws IllegalArgumentException si la entrada no es una palabra v�lida 
 	 */
 	public Set<String> getCorrections(String wrong) {
+		if (!TokenScanner.isWord(wrong))
+			throw new IllegalArgumentException();
+		
 		Set<String> corrections = new HashSet<>();
 		
 		for (int i = 1; i < wrong.length(); i++) {

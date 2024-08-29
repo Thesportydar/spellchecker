@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.NoSuchElementException;
 
 /**
  * Dado un archivo provee un m�todo para recorrerlo.
@@ -84,7 +85,7 @@ public class TokenScanner implements Iterator<String> {
    */
   public String next() {
 	  if (!hasNext())
-		  throw new java.util.NoSuchElementException("No hay más tokens en el reader");
+		  throw new NoSuchElementException("No hay más tokens en el reader");
 	  
 	  StringBuilder buffer = new StringBuilder();
 	  

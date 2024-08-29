@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.security.auth.kerberos.KerberosCredMessage;
-
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
