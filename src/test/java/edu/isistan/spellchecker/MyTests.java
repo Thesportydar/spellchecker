@@ -23,6 +23,105 @@ public class MyTests {
 	    return mySet;
 	}
 	
+	// TEST TOKENIZER
+	@Test(timeout=500) public void testEmptyEntry() throws IOException {
+		Reader in = new StringReader("");
+		TokenScanner t = new TokenScanner(in);
+		try {
+			assertFalse("reached end of stream", t.hasNext());
+		} finally {
+			in.close();
+		}
+	}
+	
+	@Test(timeout=500) public void testOneWord() throws IOException {
+		Reader in = new StringReader("Word");
+		TokenScanner t = new TokenScanner(in);
+		try {
+			assertTrue("has next", t.hasNext());
+		    assertEquals("Word", t.next());
+		    assertTrue(TokenScanner.isWord("Word"));
+		    
+			assertFalse("reached end of stream", t.hasNext());
+		} finally {
+			in.close();
+		}
+	}
+	
+	@Test(timeout=500) public void testOneNoWord() throws IOException {
+		Reader in = new StringReader("1998@");
+		TokenScanner t = new TokenScanner(in);
+		try {
+			assertTrue("has next", t.hasNext());
+		    assertEquals("1998@", t.next());
+		    assertFalse(TokenScanner.isWord("1998@"));
+		    
+			assertFalse("reached end of stream", t.hasNext());
+		} finally {
+			in.close();
+		}
+	}
+	
+	@Test(timeout=500) public void testEndWithWord() throws IOException {
+		Reader in = new StringReader("1998 year");
+		TokenScanner t = new TokenScanner(in);
+		try {
+			assertTrue("has next", t.hasNext());
+		    assertEquals("1998 ", t.next());
+		    assertFalse(TokenScanner.isWord("1998 "));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals("year", t.next());
+		    assertTrue(TokenScanner.isWord("year"));
+		    
+			assertFalse("reached end of stream", t.hasNext());
+		} finally {
+			in.close();
+		}
+	}
+	
+	@Test(timeout=500) public void testEndWithNoWord() throws IOException {
+		Reader in = new StringReader("Have a nice day!");
+		TokenScanner t = new TokenScanner(in);
+		try {
+			assertTrue("has next", t.hasNext());
+		    assertEquals("Have", t.next());
+		    assertTrue(TokenScanner.isWord("Have"));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals(" ", t.next());
+		    assertFalse(TokenScanner.isWord(" "));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals("a", t.next());
+		    assertTrue(TokenScanner.isWord("a"));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals(" ", t.next());
+		    assertFalse(TokenScanner.isWord(" "));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals("nice", t.next());
+		    assertTrue(TokenScanner.isWord("nice"));
+
+		    assertTrue("has next", t.hasNext());
+		    assertEquals(" ", t.next());
+		    assertFalse(TokenScanner.isWord(" "));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals("day", t.next());
+		    assertTrue(TokenScanner.isWord("day"));
+		    
+		    assertTrue("has next", t.hasNext());
+		    assertEquals("!", t.next());
+		    assertFalse(TokenScanner.isWord("!"));
+		    
+			assertFalse("reached end of stream", t.hasNext());
+		} finally {
+			in.close();
+		}
+	}
+	
 	// TEST DICCIONARIO
 	@Test(timeout=500) public void testDictionaryExistingWord() throws IOException {
 		Dictionary d = new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));

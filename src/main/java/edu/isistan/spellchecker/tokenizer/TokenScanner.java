@@ -13,7 +13,7 @@ public class TokenScanner implements Iterator<String> {
 	
 	private static final char APOSTROFE = '\'';
 	private java.io.Reader fileReader;
-	private int currentChar;
+	private int currentChar = 0;
   /**
    * Crea un TokenScanner.
    * <p>
