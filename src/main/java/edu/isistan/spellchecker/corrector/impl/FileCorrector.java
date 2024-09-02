@@ -28,7 +28,6 @@ public class FileCorrector extends Corrector {
 
 	/**
 	 * Constructor del FileReader
-	 *
 	 * Utilice un BufferedReader para leer el archivo de definici�n
 	 *
 	 * <p> 
@@ -86,7 +85,7 @@ public class FileCorrector extends Corrector {
 			throw new IllegalArgumentException();
 		}
 		
-		corrections = new HashMap<String, Set<String>>();
+		corrections = new HashMap<>();
 		BufferedReader br = new BufferedReader(r);
 		String line;
 		int numLine = 1;
@@ -94,13 +93,14 @@ public class FileCorrector extends Corrector {
 		while ((line = br.readLine()) != null) {
 			String[] parts = line.split(",");
 			
-			if (parts.length < 2 || parts[0] == null)
+			if (parts.length != 2 || parts[0].isEmpty()) {
 				throw new FormatException("Formato invalido en la linea " + numLine + ":\"" + line + "\".\nSe esperaba: <wrong>,<correct>");
+			}
 			
 			parts[0] = parts[0].trim().toLowerCase();
 			parts[1] = parts[1].trim().toLowerCase();
 			
-			Set<String> aux = corrections.computeIfAbsent(parts[0], k -> new HashSet<String>());
+			Set<String> aux = corrections.computeIfAbsent(parts[0], k -> new HashSet<>());
 			aux.add(parts[1]);
 			numLine++;
 		}
@@ -138,6 +138,6 @@ public class FileCorrector extends Corrector {
 		if (!TokenScanner.isWord(wrong))
 			throw new IllegalArgumentException();
 		
-		return matchCase(wrong, corrections.getOrDefault(wrong.trim().toLowerCase(), new HashSet<String>()));
+		return matchCase(wrong, corrections.getOrDefault(wrong.trim().toLowerCase(), new HashSet<>()));
 	}
 }

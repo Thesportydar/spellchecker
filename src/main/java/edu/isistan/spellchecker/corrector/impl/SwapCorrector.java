@@ -3,8 +3,8 @@ package edu.isistan.spellchecker.corrector.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.isistan.spellchecker.corrector.AbstractDictionary;
 import edu.isistan.spellchecker.corrector.Corrector;
-import edu.isistan.spellchecker.corrector.Dictionary;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 /**
  * Este corrector sugiere correciones cuando dos letras adyacentes han sido cambiadas.
@@ -19,14 +19,14 @@ import edu.isistan.spellchecker.tokenizer.TokenScanner;
  */
 public class SwapCorrector extends Corrector {
 
-	private Dictionary dict;
+	private AbstractDictionary dict;
 	/**
-	 * Construcye el SwapCorrector usando un Dictionary.
+	 * Construcye el SwapCorrector usando un AbstractDictionary.
 	 *
 	 * @param dict 
 	 * @throws IllegalArgumentException si el diccionario provisto es null
 	 */
-	public SwapCorrector(Dictionary dict) {
+	public SwapCorrector(AbstractDictionary dict) {
 		if (dict == null) {
 			throw new IllegalArgumentException();
 		}
@@ -59,13 +59,12 @@ public class SwapCorrector extends Corrector {
 		
 		for (int i = 1; i < wrong.length(); i++) {
 			if (wrong.charAt(i) != wrong.charAt(i-1)) {
-				String perm = wrong.substring(0, i-1) + wrong.charAt(i) + wrong.charAt(i-1) + wrong.substring(i+1, wrong.length());
+				String perm = wrong.substring(0, i-1) + wrong.charAt(i) + wrong.charAt(i-1) + wrong.substring(i+1);
 				
 				if (dict.isWord(perm))
 					corrections.add(perm);
 			}
 		}
 		return matchCase(wrong, corrections);
-		
 	}
 }

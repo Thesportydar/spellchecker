@@ -2,14 +2,13 @@ package edu.isistan.spellchecker.corrector.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.isistan.spellchecker.corrector.AbstractDictionary;
 import edu.isistan.spellchecker.corrector.Corrector;
-import edu.isistan.spellchecker.corrector.Dictionary;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 /**
  *
  * Un corrector inteligente que utiliza "edit distance" para generar correcciones.
- * 
  * La distancia de Levenshtein es el n�mero minimo de ediciones que se deber
  * realizar a un string para igualarlo a otro. Por edici�n se entiende:
  * <ul>
@@ -25,14 +24,14 @@ import edu.isistan.spellchecker.tokenizer.TokenScanner;
  */
 public class Levenshtein extends Corrector {
 
-	Dictionary dict;
+	AbstractDictionary dict;
 	/**
 	 * Construye un Levenshtein Corrector usando un Dictionary.
 	 * Debe arrojar <code>IllegalArgumentException</code> si el diccionario es null.
 	 *
 	 * @param dict
 	 */
-	public Levenshtein(Dictionary dict) {
+	public Levenshtein(AbstractDictionary dict) {
 		if (dict == null) {
 			throw new IllegalArgumentException();
 		}
@@ -44,10 +43,10 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a erase distance uno
 	 */
 	Set<String> getDeletions(String s) {
-		Set<String> deletions = new HashSet<String>();
+		Set<String> deletions = new HashSet<>();
 		
 		for (int i = 0; i < s.length(); i++) {
-			String aux = s.substring(0, i) + s.substring(i+1, s.length());
+			String aux = s.substring(0, i) + s.substring(i+1);
 			if (dict.isWord(aux)) {
 				deletions.add(aux);
 			}
@@ -60,7 +59,7 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a substitution distance uno
 	 */
 	public Set<String> getSubstitutions(String s) {
-		Set<String> substitutions = new HashSet<String>();
+		Set<String> substitutions = new HashSet<>();
 		
 		for (int i = 0; i < s.length(); i++) {
 			for (char c = 'a'; c <= 'z'; c++) {
@@ -81,7 +80,7 @@ public class Levenshtein extends Corrector {
 	 * @return todas las palabras a insert distance uno
 	 */
 	public Set<String> getInsertions(String s) {
-		Set<String> insertions = new HashSet<String>();
+		Set<String> insertions = new HashSet<>();
 		
 		for (int i = 0; i <= s.length(); i++) {
 			for (char c = 'a'; c <= 'z'; c++) {

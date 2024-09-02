@@ -8,12 +8,11 @@ import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 /**
  * El diccionario maneja todas las palabras conocidas.
- * El diccionario es case insensitive 
- * 
+ * El diccionario es case insensitive
  * Una palabra "v�lida" es una secuencia de letras (determinado por Character.isLetter) 
  * o apostrofes.
  */
-public class Dictionary {
+public class Dictionary extends AbstractDictionary {
 
 	Set<String> words;
 	/**
@@ -24,32 +23,17 @@ public class Dictionary {
 	 *
 	 * <p>
 	 *
-	 * @param ts 
+	 * @param ts
 	 * @throws IOException Error leyendo el archivo
 	 * @throws IllegalArgumentException el TokenScanner es null
 	 */
-	public Dictionary(TokenScanner ts) throws IOException {
-		this(ts, new HashSet<String>());
-	}
 	
-	public Dictionary(TokenScanner ts, Set<String> words) throws IOException {
+	public Dictionary(TokenScanner ts) throws IOException {
 		if (ts == null) {
 			throw new IllegalArgumentException("El TokenScanner es null");
 		}
-		this.words = words;
+		this.words = new HashSet<>();
 		loadWords(ts);
-	}
-	
-	private void loadWords(TokenScanner ts) throws IOException {
-		String token;
-		
-		while (ts.hasNext()) {
-			token = ts.next();
-			
-			if (TokenScanner.isWord(token) && !this.isWord(token)) {
-				words.add(token.toLowerCase());
-			}
-		}
 	}
 
 	/**
@@ -74,8 +58,20 @@ public class Dictionary {
 	 * 
 	 * @return n�mero de palabras �nicas
 	 */
+	@Override
 	public int getNumWords() {
 		return words.size();
+	}
+
+	/**
+	 * Implementacion del add para agregar una palabra al diccionario
+	 * Recordar que es case insensitive
+	 * @param word
+	 * @return
+	 */
+	@Override
+	public boolean add(String word) {
+		return words.add(word.toLowerCase());
 	}
 
 	/**
@@ -83,17 +79,14 @@ public class Dictionary {
 	 * el diccionario debe retornar false. null debe retornar falso.
 	 * Si en el diccionario est� la palabra Dog y se pregunta por la palabra dog
 	 * debe retornar true, ya que es case insensitive.
-	 *
 	 *Llamar a este m�todo no debe reabrir el archivo de palabras.
 	 *
 	 * @param word verifica si la palabra est� en el diccionario. 
 	 * Asuma que todos los espacios en blanco antes y despues de la palabra fueron removidos.
 	 * @return si la palabra est� en el diccionario.
 	 */
+	@Override
 	public boolean isWord(String word) {
-		if (word == null || word == "" || !words.contains(word.toLowerCase())) {
-			return false;
-		}
-		return true;
-	}
+        return word != null && !word.isEmpty() && words.contains(word.toLowerCase());
+    }
 }

@@ -1,14 +1,12 @@
 package edu.isistan.spellchecker;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import edu.isistan.spellchecker.corrector.AbstractDictionary;
 import edu.isistan.spellchecker.corrector.Corrector;
-import edu.isistan.spellchecker.corrector.Dictionary;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 /**
@@ -27,16 +25,16 @@ import edu.isistan.spellchecker.tokenizer.TokenScanner;
  * @see SpellCheckerRunner
  */
 public class SpellChecker {
-    private Corrector corr;
-    private Dictionary dict;
+    private final Corrector corr;
+    private final AbstractDictionary dict;
 
     /**
      * Constructor del SpellChecker
      *
      * @param c un Corrector
-     * @param d un Dictionary
+     * @param d un AbstractDictionary
      */
-    public SpellChecker(Corrector c, Dictionary d) {
+    public SpellChecker(Corrector c, AbstractDictionary d) {
         corr = c;
         dict = d;
     }
@@ -72,8 +70,6 @@ public class SpellChecker {
         return sc.next();
     }
 
-
-
     /**
      * checkDocument interactivamente chequea un archivo de texto..
      * Internamente, debe usar un TokenScanner para parsear el documento.
@@ -94,25 +90,31 @@ public class SpellChecker {
             String token = ts.next();
             if (TokenScanner.isWord(token) && !dict.isWord(token)) {
                 Set<String> corrections = corr.getCorrections(token);
-                String correction = chooseCorrection(corrections, sc);
-                System.out.println();
-                if (correction != null) {
-                    token = correction;
-                }
+                token = chooseCorrection(token, corrections, sc);
             }
             out.write(token);
         }
     }
 
-    public String chooseCorrection(Set<String> corrections, Scanner sc) {
+    /**
+     * Dada una palabra que no pertenece al diccionario y un set de correciones
+     * solicita al usuario que accion desea tomar. Ignorar, ingresar la correccion
+     * manualmente, o seleccionar una del conjunto.
+     * La salida al usuario se envia por la salida estandar.
+     *
+     * @param token Palabra mal escrita
+     * @param corrections Conjunto de potenciales correciones
+     * @param sc Entrada interactiva del usuario donde indicara la accion a tomar
+     * @return Palabra corregida (puede ser el mismo token de entrada)
+     */
+    public String chooseCorrection(String token, Set<String> corrections, Scanner sc) {
         LinkedList<String> options = new LinkedList<>(corrections);
 
         // display options
-        System.out.println(0 + ") " + "Ignorar");
-        System.out.println(1 + ") " + "Ingresar manualmente..");
+        System.out.println("The word: \"" + token + "\" is not in the dictionary. Please enter the number corresponding with the appropriate action\n0: Ignore and continue\n1:Replace with another word");
         if (!corrections.isEmpty()) {
             for (int i = 0; i < options.size(); i++) {
-                System.out.println(i + 2 + ") " + options.get(i));
+                System.out.println(i + 2 + ": Replace with \"" + options.get(i) +"\"");
             }
         }
 
@@ -120,9 +122,8 @@ public class SpellChecker {
         int opt = getNextInt(0, corrections.size()+1, sc);
 
         if (opt == 0) {
-            return null;
+            return token;
         } else if (opt == 1) {
-            System.out.println("Ingresa la correccion: ");
             return getNextString(sc);
         } else {
             return options.get(opt - 2);
