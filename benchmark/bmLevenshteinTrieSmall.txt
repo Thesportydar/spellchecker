@@ -1,0 +1,17 @@
+Benchmark                                                    (input)  Mode  Cnt     Score      Error  Units
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionSmall        teh  avgt    3  6654.338 ±   40.786  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionSmall          h  avgt    3  2008.129 ±  644.936  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionSmall         ay  avgt    3  4572.262 ±  335.559  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionSmall        sch  avgt    3  1059.708 ±   40.988  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsSmall         teh  avgt    3   120.448 ±    4.914  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsSmall           h  avgt    3     4.815 ±    0.677  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsSmall          ay  avgt    3    47.794 ±    3.116  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsSmall         sch  avgt    3    25.260 ±    0.124  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertSmall            teh  avgt    3  2187.410 ±   24.485  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertSmall              h  avgt    3  1719.746 ±  266.830  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertSmall             ay  avgt    3  1845.051 ±   78.497  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertSmall            sch  avgt    3   870.984 ±   20.752  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionSmall      teh  avgt    3  2276.883 ±  225.914  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionSmall        h  avgt    3   575.730 ±   59.046  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionSmall       ay  avgt    3  1384.272 ±   54.219  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionSmall      sch  avgt    3   621.236 ±    2.360  ns/op
