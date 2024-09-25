@@ -15,3 +15,47 @@ LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig      teh  avgt    3   
 LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig        h  avgt    3   1195.143 ± 344.199  ns/op
 LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig       ay  avgt    3   3652.997 ±  19.143  ns/op
 LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig      sch  avgt    3   2466.216 ± 645.622  ns/op
+
+24/09/2024 4pm
+
+Benchmark                                                         (input)  Mode  Cnt      Score     Error  Units
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig               teh  avgt    5  11220.782 ± 240.011  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig                ay  avgt    5  14285.904 ± 161.600  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig        evangelint  avgt    5  27561.992 ± 309.935  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig              ream  avgt    5  14911.319 ± 160.925  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig    americanizatio  avgt    5  39058.918 ± 720.005  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig          atencion  avgt    5  13955.801 ± 233.961  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig             gemma  avgt    5  15248.032 ± 249.768  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig           civilin  avgt    5  19130.801 ± 157.853  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig             pollo  avgt    5  16251.313 ± 207.446  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieCorrectionBig             theow  avgt    5  14572.339 ± 187.271  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig                teh  avgt    5    292.244 ±   3.754  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig                 ay  avgt    5    153.295 ±   1.441  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig         evangelint  avgt    5    467.615 ±   3.378  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig               ream  avgt    5    397.156 ±   5.072  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig     americanizatio  avgt    5    537.566 ±   5.716  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig           atencion  avgt    5    176.949 ±   1.057  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig              gemma  avgt    5    252.363 ±   3.386  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig            civilin  avgt    5    243.264 ±   3.914  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig              pollo  avgt    5    413.195 ±   6.351  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieDeletionsBig              theow  avgt    5    317.726 ±   7.469  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                   teh  avgt    5   5527.092 ±  50.790  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                    ay  avgt    5   4863.641 ±  66.951  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig            evangelint  avgt    5  12940.138 ± 133.109  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                  ream  avgt    5   7119.810 ± 163.399  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig        americanizatio  avgt    5  19312.862 ± 599.996  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig              atencion  avgt    5   6741.169 ± 113.805  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                 gemma  avgt    5   8403.669 ± 110.864  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig               civilin  avgt    5   9277.718 ± 154.582  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                 pollo  avgt    5   7669.178 ± 137.256  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieInsertBig                 theow  avgt    5   6851.889 ±  77.062  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig             teh  avgt    5   4446.461 ±  56.322  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig              ay  avgt    5   4729.719 ±  64.637  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig      evangelint  avgt    5  14367.827 ± 394.478  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig            ream  avgt    5   6365.908 ±  56.983  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig  americanizatio  avgt    5  18616.390 ± 310.406  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig        atencion  avgt    5   6506.028 ±  76.862  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig           gemma  avgt    5   6952.250 ±  89.278  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig         civilin  avgt    5   9440.119 ±  97.141  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig           pollo  avgt    5   7817.798 ±  86.054  ns/op
+LevenshteinTrieBenchmark.bmLevenshteinTrieSubstitutionBig           theow  avgt    5   7014.252 ±  78.208  ns/op
