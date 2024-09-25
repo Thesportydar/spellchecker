@@ -11,13 +11,14 @@ import java.util.concurrent.TimeUnit;
 public class BenchmarkRunner {
     public static void main(String[] args) throws Exception {
         Options opt = new OptionsBuilder()
-                .include("bmLevenshtein.*")
+                .include("bmLevenshtein(?:Insert|Deletions|Substitution|Correction)Big")
                 .forks(1)  // Usar 1 fork para reducir la ejecución
-                .warmupIterations(2)  // 3 iteraciones de calentamiento
+                .warmupIterations(2)  // 2 iteraciones de calentamiento
+                .warmupTime(org.openjdk.jmh.runner.options.TimeValue.seconds(1))
                 .measurementIterations(5)  // 5 iteraciones de medición
+                .measurementTime(org.openjdk.jmh.runner.options.TimeValue.seconds(5))
                 .mode(Mode.AverageTime)
                 .timeUnit(TimeUnit.NANOSECONDS)
-                .param("input", "teh", "h", "ay", "sch", "add", "allan", "marsh", "minnesot", "pam", "gemma")
                 .build();
 
         new Runner(opt).run();

@@ -1,0 +1,7 @@
+Benchmark                                                 (input)  Mode  Cnt   Score   Error  Units
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall     tigger  avgt    5  60.378 ± 1.001  ns/op
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall  chimpanze  avgt    5  56.636 ± 0.870  ns/op
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall     pelota  avgt    5  21.136 ± 1.414  ns/op
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall       gose  avgt    5  47.737 ± 1.621  ns/op
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall     banana  avgt    5  21.010 ± 0.671  ns/op
+FileCorrectorBenchmark.bmFileCorrectorCorrectionsSmall     tomate  avgt    5  20.977 ± 0.477  ns/op

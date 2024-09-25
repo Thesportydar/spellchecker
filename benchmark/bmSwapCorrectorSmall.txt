@@ -1,0 +1,6 @@
+Benchmark                                      (input)  Mode  Cnt    Score    Error  Units
+SwapCorrectorBenchmark.bmSwapCorrectionsSmall      teh  avgt    5  101.516 ± 22.214  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsSmall       ay  avgt    5   29.410 ±  1.187  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsSmall        h  avgt    5   13.714 ±  0.839  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsSmall   pelota  avgt    5  444.132 ±  5.779  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsSmall   banane  avgt    5  442.960 ± 12.560  ns/op

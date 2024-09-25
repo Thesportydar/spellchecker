@@ -10,54 +10,27 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class TrieBenchmark {
 
-    private Trie smallTrie, trie;
+    private Trie smallTrie;
 
     @Setup(Level.Trial)//cambiar a invocation
     public void setUp() throws IOException {
         smallTrie = new Trie(new TokenScanner(new FileReader("smallDictionary.txt")));
-        trie = new Trie(new TokenScanner(new FileReader("dictionary.txt")));
+    }
+
+    @Param({"ah", "te", "tah", "ai", "ey", "rey", "carrot", "banana", "durian", "tomato","pepper","radish"})
+    private String input;
+
+    @Benchmark
+    public void bmTrieSmallContains() {
+        smallTrie.isWord(input);
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void bmTrieDictionaryContainsSmall() {
-        smallTrie.isWord("apple");
-        smallTrie.isWord("Banana");
-        smallTrie.isWord("pineapple");
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public void bmTrieDictionaryCreateSmall() throws IOException {
         new Trie(new TokenScanner(new FileReader("smallDictionary.txt")));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void bmTrieDictionaryContains() {
-        trie.isWord("apple");
-        trie.isWord("Banana");
-        trie.isWord("pineapple");
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     public void bmTrieDictionaryCreate() throws IOException {
         new Trie(new TokenScanner(new FileReader("dictionary.txt")));
     }

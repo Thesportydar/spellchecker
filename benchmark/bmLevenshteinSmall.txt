@@ -15,3 +15,54 @@ LevenshteinBenchmark.bmLevenshteinSubstitutionSmall              teh  avgt    3 
 LevenshteinBenchmark.bmLevenshteinSubstitutionSmall                h  avgt    3   452.357 ±  235.033  ns/op
 LevenshteinBenchmark.bmLevenshteinSubstitutionSmall               ay  avgt    3  1556.032 ±  522.443  ns/op
 LevenshteinBenchmark.bmLevenshteinSubstitutionSmall              sch  avgt    3  2611.504 ±  151.791  ns/op
+
+
+24/09/2024
+Benchmark                                                   (input)  Mode  Cnt      Score      Error  Units
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall             teh  avgt    5   8222.531 ±  960.583  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall              ay  avgt    5   4605.325 ± 1295.162  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall      evangelint  avgt    5  32087.540 ±  744.158  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall            ream  avgt    5  11132.670 ± 2018.211  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall  americanizatio  avgt    5  52274.553 ± 3474.616  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall        atencion  avgt    5  27168.580 ± 2544.938  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall              teh  avgt    5     97.514 ±   10.476  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall               ay  avgt    5     48.015 ±    2.559  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall       evangelint  avgt    5    412.494 ±  135.014  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall             ream  avgt    5    108.514 ±    9.989  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall   americanizatio  avgt    5    714.223 ±  151.934  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall         atencion  avgt    5    292.544 ±   34.788  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                   teh  avgt    5   3167.791 ±   11.986  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                    ay  avgt    5   2777.187 ±   23.871  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall            evangelint  avgt    5  18281.503 ±  287.711  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                  ream  avgt    5   5632.848 ±   28.167  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall        americanizatio  avgt    5  28913.596 ± 1722.629  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall              atencion  avgt    5  13258.874 ±  157.287  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall             teh  avgt    5   3372.173 ±   45.838  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall              ay  avgt    5   1601.587 ±  273.491  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall      evangelint  avgt    5  15819.050 ± 4031.664  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall            ream  avgt    5   3776.170 ±   55.081  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall  americanizatio  avgt    5  24694.406 ± 3996.624  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall        atencion  avgt    5  12856.299 ±  330.471  ns/op
+
+24/09/2024 4pm
+Benchmark                                                    (input)  Mode  Cnt      Score     Error  Units
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall                teh  avgt    5   8260.570 ± 917.844  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall                 ay  avgt    5   4694.502 ±  46.197  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall                  h  avgt    5   1804.670 ±  32.357  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall             pelota  avgt    5  17466.406 ± 311.897  ns/op
+LevenshteinBenchmark.bmLevenshteinCorrectionSmall            bananan  avgt    5  20388.971 ± 441.761  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall                 teh  avgt    5     97.169 ±  10.037  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall                  ay  avgt    5     46.834 ±   2.240  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall                   h  avgt    5      8.686 ±   3.520  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall              pelota  avgt    5    165.967 ±   0.592  ns/op
+LevenshteinBenchmark.bmLevenshteinDeletionsSmall             bananan  avgt    5    229.894 ±   1.510  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                    teh  avgt    5   3939.974 ± 111.321  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                     ay  avgt    5   2771.482 ±  23.887  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                      h  avgt    5   1184.782 ±  88.996  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                 pelota  avgt    5  10395.707 ± 347.742  ns/op
+LevenshteinBenchmark.bmLevenshteinInsertSmall                bananan  avgt    5  12338.400 ± 128.746  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall              teh  avgt    5   3111.708 ± 144.950  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall               ay  avgt    5   1565.420 ± 100.491  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall                h  avgt    5    448.077 ±  17.506  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall           pelota  avgt    5   8607.736 ±  24.151  ns/op
+LevenshteinBenchmark.bmLevenshteinSubstitutionSmall          bananan  avgt    5   9829.475 ± 140.808  ns/op

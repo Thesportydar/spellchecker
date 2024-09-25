@@ -1,0 +1,24 @@
+Benchmark                                            (input)  Mode  Cnt    Score    Error  Units
+SwapCorrectorBenchmark.bmSwapCorrectionsBig              teh  avgt    5  106.267 ±  3.592  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig               ay  avgt    5   64.822 ±  2.194  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig       evangelint  avgt    5  406.332 ± 28.972  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig             ream  avgt    5  131.225 ±  9.027  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig  americanizatiol  avgt    5  806.292 ± 26.828  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig         atencion  avgt    5  661.439 ± 36.840  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            gemma  avgt    5  133.563 ± 23.711  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig         civiliun  avgt    5  572.678 ± 10.521  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            pollo  avgt    5  133.780 ± 30.288  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            theow  avgt    5  364.048 ± 14.596  ns/op
+
+24/09/2024 4pm
+Benchmark                                            (input)  Mode  Cnt    Score    Error  Units
+SwapCorrectorBenchmark.bmSwapCorrectionsBig               ay  avgt    5   70.752 ±  2.475  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig               pa  avgt    5   62.142 ±  1.259  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig       evangelien  avgt    5  505.541 ±  9.035  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            rceam  avgt    5  222.067 ±  9.457  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig  americainzation  avgt    5  908.961 ± 33.738  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig         atencion  avgt    5  640.743 ± 23.765  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            gemma  avgt    5  126.468 ± 20.927  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig         ciivlian  avgt    5  444.088 ±  7.864  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            pollo  avgt    5  130.727 ± 29.663  ns/op
+SwapCorrectorBenchmark.bmSwapCorrectionsBig            thorw  avgt    5  331.905 ±  2.402  ns/op
