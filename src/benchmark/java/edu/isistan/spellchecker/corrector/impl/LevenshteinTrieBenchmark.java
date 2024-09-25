@@ -14,7 +14,7 @@ public class LevenshteinTrieBenchmark {
     private LevenshteinTrie small, big;
 
     //@Param({"teh"})//, "h", "ay"})//, "add", "allan", "marsh", "minnesot", "pam", "sch", "gemma"})
-    @Param({})
+    @Param({"teh", "ay", "h","pelota", "bananan"})
     private String input;
 
     @Setup(Level.Trial)//cambiar a invocation

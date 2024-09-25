@@ -10,54 +10,26 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class DictionaryBenchmark {
-    private Dictionary small, dictionary;
+    private Dictionary small;
+    @Param({"ah", "te", "tah", "ai", "ey", "rey", "carrot", "banana", "durian", "tomato","pepper","radish"})
+    private String input;
 
     @Setup(Level.Trial)//cambiar a invocation
     public void setUp() throws IOException {
         small = new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));
-        dictionary = new Dictionary(new TokenScanner(new FileReader("dictionary.txt")));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void bmDictionaryContainsSmall() {
-        small.isWord("apple");
-        small.isWord("Banana");
-        small.isWord("pineapple");
+    public void bmDictionarySmallContains() {
+        small.isWord(input);
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void bmDictionaryCreateSmall() throws IOException {
+    //@Benchmark
+    public void bmDictionarySmallCreate() throws IOException {
         new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));
     }
 
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-    public void bmDictionaryContains() {
-        dictionary.isWord("apple");
-        dictionary.isWord("Banana");
-        dictionary.isWord("pineapple");
-    }
-
-    @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    //@Benchmark
     public void bmDictionaryCreate() throws IOException {
         new Dictionary(new TokenScanner(new FileReader("dictionary.txt")));
     }

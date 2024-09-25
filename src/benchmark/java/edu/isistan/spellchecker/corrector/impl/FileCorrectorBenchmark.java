@@ -9,32 +9,23 @@ import edu.isistan.spellchecker.corrector.Corrector;
 
 @State(Scope.Benchmark)
 public class FileCorrectorBenchmark {
-	private Corrector cSmall;
-	private Corrector c;
+	private Corrector small, big;
 	
 	@Setup(Level.Trial)//cambiar a invocation
     public void setUp() throws IOException, FileCorrector.FormatException {
-		c = FileCorrector.make("Misspellings.txt");
-		cSmall = FileCorrector.make("smallMisspellings.txt");
+		big = FileCorrector.make("misspellings.txt");
+		small = FileCorrector.make("smallMisspellings.txt");
+	}
+
+	@Param({"adres", "airporta", "algoritm", "cruz", "archivo", "aclimatacion" })
+	//@Param({"tigger", "chimpanze","pelota", "gose", "banana", "tomate"})
+	private String input;
+
+	@Benchmark
+	public void bmFileCorrectorCorrectionsSmall() {
+		small.getCorrections(input);
 	}
 	
 	@Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-	public void bmFileCorrectorSmallCorrections() {
-		cSmall.getCorrections("TIGGER");
-	}
-	
-	@Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @Fork(value = 1)
-    @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 10, time = 2, timeUnit = TimeUnit.SECONDS)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
-	public void bmFileCorrectorCorrections() {
-		c.getCorrections("TIGGER");
-	}
+	public void bmFileCorrectorCorrectionsBig() { big.getCorrections(input); }
 }
