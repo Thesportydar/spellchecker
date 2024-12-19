@@ -1,11 +1,11 @@
 package edu.isistan.spellchecker.corrector;
 
 import edu.isistan.spellchecker.corrector.Dictionary;
+import edu.isistan.spellchecker.corrector.impl.Levenshtein;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 import org.openjdk.jmh.annotations.*;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
@@ -16,7 +16,12 @@ public class DictionaryBenchmark {
 
     @Setup(Level.Trial)//cambiar a invocation
     public void setUp() throws IOException {
-        small = new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallDictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "smallDictionary.txt" + "' no encontrado en resources.");
+            }
+            small = new Dictionary(new TokenScanner(new InputStreamReader(inputStream)));
+        }
     }
 
     @Benchmark
@@ -24,13 +29,23 @@ public class DictionaryBenchmark {
         small.isWord(input);
     }
 
-    //@Benchmark
+    @Benchmark
     public void bmDictionarySmallCreate() throws IOException {
-        new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallDictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "smallDictionary.txt" + "' no encontrado en resources.");
+            }
+            new Dictionary(new TokenScanner(new InputStreamReader(inputStream)));
+        }
     }
 
-    //@Benchmark
+    @Benchmark
     public void bmDictionaryCreate() throws IOException {
-        new Dictionary(new TokenScanner(new FileReader("dictionary.txt")));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallDictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "smallDictionary.txt" + "' no encontrado en resources.");
+            }
+            new Dictionary(new TokenScanner(new InputStreamReader(inputStream)));
+        }
     }
 }

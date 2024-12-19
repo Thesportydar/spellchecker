@@ -1,11 +1,5 @@
 package edu.isistan.spellchecker;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.corrector.Dictionary;
@@ -58,7 +52,11 @@ public class SpellCheckerRunner {
 			return;
 		}
 		try {
-			Reader in = new BufferedReader(new FileReader(args[0]));
+			InputStream inputStream = SpellCheckerRunner.class.getClassLoader().getResourceAsStream(args[0]);
+			if (inputStream == null) {
+				throw new FileNotFoundException("Archivo '" + args[0] + "' no encontrado en resources.");
+			}
+			Reader in = new InputStreamReader(inputStream);
 			Writer out = new BufferedWriter(new FileWriter(args[1]));
 			Dictionary dict = Dictionary.make(args[2]);
 			SpellChecker sp = new SpellChecker(makeCorrector(args[3], dict), dict);

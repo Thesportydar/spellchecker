@@ -10,7 +10,6 @@ import java.io.*;
 import org.junit.Test;
 
 import edu.isistan.spellchecker.corrector.Corrector;
-import edu.isistan.spellchecker.corrector.impl.FileCorrector;
 
 public class FileCorrectorTest {
 

@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.isistan.spellchecker.corrector.Dictionary;
-import edu.isistan.spellchecker.corrector.impl.Levenshtein;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 public class LevenshteinTest {
@@ -30,8 +29,13 @@ public class LevenshteinTest {
 
 
 	@Before public void setUp() throws IOException {
-		Dictionary dict = new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt")));
-		corr = new Levenshtein(dict);
+		try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dictionary.txt")) {
+			if (inputStream == null) {
+				throw new FileNotFoundException("Archivo '" + "dictionary.txt" + "' no encontrado en resources.");
+			}
+			Dictionary dict = new Dictionary(new TokenScanner(new InputStreamReader(inputStream)));
+			corr = new Levenshtein(dict);
+		}
 	}
 
 
@@ -50,6 +54,10 @@ public class LevenshteinTest {
 		}
 	}
 
+	@Test
+	public void testWords() throws IOException {
+		System.out.println(corr.getCorrections("theow"));
+	}
 
 	@Test public void testDeletion() throws IOException {
 		assertEquals("teh -> {eh,th,te}", makeSet(new String[]{"eh","th","te"}), corr.getDeletions("teh"));

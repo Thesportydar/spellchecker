@@ -3,12 +3,10 @@
  */
 package edu.isistan.spellchecker.corrector;
 
+import edu.isistan.spellchecker.corrector.impl.FileCorrector;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -69,7 +67,11 @@ public class Trie extends AbstractDictionary {
 	 * @throws IOException Error leyendo el archivo
 	 */
 	public static Trie make(String filename) throws IOException {
-		Reader r = new FileReader(filename);
+		InputStream inputStream = FileCorrector.class.getClassLoader().getResourceAsStream(filename);
+		if (inputStream == null) {
+			throw new FileNotFoundException("Archivo '" + filename + "' no encontrado en resources.");
+		}
+		Reader r = new InputStreamReader(inputStream);
 		Trie t = new Trie(new TokenScanner(r));
 		r.close();
 		return t;

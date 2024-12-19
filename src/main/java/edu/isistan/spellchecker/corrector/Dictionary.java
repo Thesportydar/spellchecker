@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Set;
 import java.util.HashSet;
 
+import edu.isistan.spellchecker.corrector.impl.FileCorrector;
 import edu.isistan.spellchecker.tokenizer.TokenScanner;
 
 /**
@@ -45,7 +46,11 @@ public class Dictionary extends AbstractDictionary {
 	 * @throws IOException Error leyendo el archivo
 	 */
 	public static Dictionary make(String filename) throws IOException {
-		Reader r = new FileReader(filename);
+		InputStream inputStream = Dictionary.class.getClassLoader().getResourceAsStream(filename);
+		if (inputStream == null) {
+			throw new FileNotFoundException("Archivo '" + filename + "' no encontrado en resources.");
+		}
+		Reader r = new InputStreamReader(inputStream);
 		Dictionary d = new Dictionary(new TokenScanner(r));
 		r.close();
 		return d;

@@ -114,7 +114,11 @@ public class FileCorrector extends Corrector {
 	 * @throws FileNotFoundException 
 	 */
 	public static FileCorrector make(String filename) throws IOException, FormatException {
-		Reader r = new FileReader(filename);
+		InputStream inputStream = FileCorrector.class.getClassLoader().getResourceAsStream(filename);
+		if (inputStream == null) {
+			throw new FileNotFoundException("Archivo '" + filename + "' no encontrado en resources.");
+		}
+		Reader r = new InputStreamReader(inputStream);
 		FileCorrector fc;
 		try {
 			fc = new FileCorrector(r);

@@ -2,17 +2,7 @@ package edu.isistan.spellchecker.corrector.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-
+import java.io.*;
 
 
 import org.junit.Test;
@@ -20,8 +10,6 @@ import org.junit.Test;
 import edu.isistan.spellchecker.SpellChecker;
 import edu.isistan.spellchecker.corrector.Corrector;
 import edu.isistan.spellchecker.corrector.Dictionary;
-import edu.isistan.spellchecker.corrector.impl.FileCorrector;
-import edu.isistan.spellchecker.corrector.impl.SwapCorrector;
 
 
 public class SpellCheckerTest {
@@ -45,8 +33,17 @@ public class SpellCheckerTest {
 			assertEquals("Dictionary size = " + dictSize, dictSize,
 					dict.getNumWords());
 
-		FileInputStream input = new FileInputStream(finput);
-		Reader in = new BufferedReader(new FileReader(fdoc));
+		InputStream input = SpellCheckerTest.class.getClassLoader().getResourceAsStream(finput);
+		if (input == null) {
+			throw new FileNotFoundException("Archivo '" + finput + "' no encontrado en resources.");
+		}
+
+		InputStream doc = SpellCheckerTest.class.getClassLoader().getResourceAsStream(fdoc);
+		if (doc == null) {
+			throw new FileNotFoundException("Archivo '" + fdoc + "' no encontrado en resources.");
+		}
+		Reader in = new BufferedReader(new InputStreamReader(doc));
+
 		Writer out = new BufferedWriter(new FileWriter(fout));
 
 		SpellChecker sc = new SpellChecker(corr,dict);
@@ -61,15 +58,15 @@ public class SpellCheckerTest {
 
 
 	@Test(timeout=500) public void testCheckFoxGood() throws IOException, FileCorrector.FormatException {
-		spellCheckFiles("theFoxDictionary.txt",7,"theFoxMisspellings.txt",
-				"theFox.txt","foxout.txt","theFox_goodinput.txt");
+		spellCheckFiles("theFoxDictionary.txt",7, "theFoxMisspellings.txt",
+				"theFox.txt", "foxout.txt", "theFox_goodinput.txt");
 		compareDocs("foxout.txt", "theFox_expected_output.txt");
 	}
 
 
 	@Test(timeout=500) public void testCheckMeanInput() throws IOException, FileCorrector.FormatException {
-		spellCheckFiles("theFoxDictionary.txt",7,"theFoxMisspellings.txt",
-				"theFox.txt","foxout.txt","theFox_meaninput.txt");
+		spellCheckFiles("theFoxDictionary.txt",7, "theFoxMisspellings.txt",
+				"theFox.txt", "foxout.txt", "theFox_meaninput.txt");
 		compareDocs("foxout.txt", "theFox_expected_output.txt");
 	}
 
@@ -77,7 +74,7 @@ public class SpellCheckerTest {
 	@Test(timeout=500) public void testCheckGettysburgSwap() throws IOException, FileCorrector.FormatException {
 		// Use the SwapCorrector instead!
 		spellCheckFiles("dictionary.txt",60822,null,
-				"Gettysburg.txt","Gettysburg-out.txt",
+				"Gettysburg.txt", "Gettysburg-out.txt",
 				"Gettysburg_input.txt");
 		compareDocs("Gettysburg-out.txt", "Gettysburg_expected_output.txt");
 	}
@@ -88,8 +85,16 @@ public class SpellCheckerTest {
 	public static void compareDocs(String out, String expected) 
 			throws IOException, FileNotFoundException 
 	{
-		BufferedReader f1 = new BufferedReader(new FileReader(out));
-		BufferedReader f2 = new BufferedReader(new FileReader(expected));
+		InputStream outStream = SpellCheckerTest.class.getClassLoader().getResourceAsStream(out);
+		InputStream expectedStream = SpellCheckerTest.class.getClassLoader().getResourceAsStream(expected);
+		if (outStream == null) {
+			throw new FileNotFoundException("Archivo '" + out + "' no encontrado en resources.");
+		}
+		if (expectedStream == null) {
+			throw new FileNotFoundException("Archivo '" + out + "' no encontrado en resources.");
+		}
+		BufferedReader f1 = new BufferedReader(new InputStreamReader(outStream));
+		BufferedReader f2 = new BufferedReader(new InputStreamReader(expectedStream));
 
 		try{
 			String line1 = f1.readLine();

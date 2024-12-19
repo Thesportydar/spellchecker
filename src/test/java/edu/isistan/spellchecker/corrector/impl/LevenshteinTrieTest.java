@@ -6,8 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -29,8 +28,14 @@ public class LevenshteinTrieTest {
 
     @Before
     public void setUp() throws IOException {
-        Trie trie = new Trie(new TokenScanner(new FileReader("smallDictionary.txt")));
-        corr = new LevenshteinTrie(trie);
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallDictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "smallDictionary.txt" + "' no encontrado en resources.");
+            }
+
+            Trie trie = new Trie(new TokenScanner(new InputStreamReader(inputStream)));
+            corr = new LevenshteinTrie(trie);
+        }
     }
 
 

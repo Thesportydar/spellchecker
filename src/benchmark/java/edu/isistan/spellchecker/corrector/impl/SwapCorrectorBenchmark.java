@@ -1,7 +1,6 @@
 package edu.isistan.spellchecker.corrector.impl;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.*;
@@ -15,8 +14,18 @@ public class SwapCorrectorBenchmark {
 	
 	@Setup(Level.Trial)//cambiar a invocation
     public void setUp() throws IOException {
-        small = new SwapCorrector(new Dictionary(new TokenScanner(new FileReader("smallDictionary.txt"))));
-        big = new SwapCorrector(new Dictionary(new TokenScanner(new FileReader("dictionary.txt"))));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallDictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "smallDictionary.txt" + "' no encontrado en resources.");
+            }
+            small = new SwapCorrector(new Dictionary(new TokenScanner(new InputStreamReader(inputStream))));
+        }
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("dictionary.txt")) {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo '" + "dictionary.txt" + "' no encontrado en resources.");
+            }
+            big = new SwapCorrector(new Dictionary(new TokenScanner(new InputStreamReader(inputStream))));
+        }
     }
 
     @Param({"ay", "pa", "evangelien", "rceam", "americainzation", "atencion", "gemma", "ciivlian", "pollo", "thorw"})
